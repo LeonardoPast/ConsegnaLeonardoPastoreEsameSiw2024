@@ -16,4 +16,6 @@ public interface SquadraService {
     public SquadraDTO updateSquadra(SquadraDTO squadraDTO, Long id);
 
     public SquadraDTO addPlayerToSquadra(Long  id, GiocatoreDTO giocatoreDTO);
+
+    public SquadraDTO getSquadraById(Long id);
 }

@@ -72,4 +72,10 @@ public class SquadraServiceImpl implements SquadraService {
         this.repo.save(this.mapper.map(current, Squadra.class));
         return current;
     }
+
+    @Override
+    public SquadraDTO getSquadraById(Long id) {
+        Squadra squadraEntity = this.repo.findById(id).get();
+        return this.mapper.map(squadraEntity, SquadraDTO.class);
+    }
 }

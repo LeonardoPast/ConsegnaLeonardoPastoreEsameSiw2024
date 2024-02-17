@@ -9,6 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -56,6 +59,15 @@ public class SquadraControllerImpl implements SquadraController {
         }
         return new ResponseEntity<SquadraDTO>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
+    @Override
+    public String updateSquadraUi(SquadraDTO squadraDTO, Long id){
+        SquadraDTO response = this.service.updateSquadra(squadraDTO, id);
+        if(response != null){
+            //return "successUpdate";
+            return "index";
+        }
+        return "error";
+    }
 
     @Override
     public ResponseEntity<SquadraDTO> addPlayerToSquadra(Long id, GiocatoreDTO giocatoreDTO) {
@@ -64,5 +76,14 @@ public class SquadraControllerImpl implements SquadraController {
             return new ResponseEntity<SquadraDTO>(response, HttpStatus.OK);
         }
         return new ResponseEntity<SquadraDTO>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Override
+    public String formSquadraUpdate(Long id, Model model) {
+        SquadraDTO squadraDTO = this.service.getSquadraById(id);
+        if(squadraDTO != null){
+            model.addAttribute("squadraDTO", squadraDTO);
+        }
+        return "formSquadra";
     }
 }

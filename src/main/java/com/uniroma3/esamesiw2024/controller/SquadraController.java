@@ -22,10 +22,16 @@ public interface SquadraController {
     @PostMapping("/salva-squadra")
     ResponseEntity<SquadraDTO> insertSquadra(@RequestBody SquadraDTO squadraDTO);
 
-    @PutMapping("/update-squadra/{id}")
+    @PostMapping("/update-squadra/{id}")
     ResponseEntity<SquadraDTO> updateSquadra(@RequestBody SquadraDTO squadraDTO, @PathVariable Long id);
+
+    @PostMapping("/update-squadra-ui/{id}")
+    public String updateSquadraUi(@ModelAttribute(value = "squadraDTO") SquadraDTO squadraDTO, @PathVariable Long id);
 
     @PutMapping("/add-player/{id}")
     ResponseEntity<SquadraDTO> addPlayerToSquadra(@PathVariable Long id, @RequestBody GiocatoreDTO giocatoreDTO);
+
+    @GetMapping("/form-squadra-update-admin/{id}")
+    public String formSquadraUpdate(@PathVariable Long id, Model model);
 
 }

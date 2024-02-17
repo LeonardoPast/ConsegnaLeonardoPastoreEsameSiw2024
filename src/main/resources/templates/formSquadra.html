@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Aggiorna squadra</title>
+    <link rel="stylesheet" href="/css/stile.css?version=2" />
+    <link rel="stylesheet" href="/css/bootstrap.css" />
+    <script defer th:src="@{/js/bootstrap.bundle.min.js}" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <header>
+        <div th:replace="fragments/navbar :: navbar"></div>
+    </header>
+
+    <div class="container-fluid">
+        <div class="row">
+            <form th:action="@{'/squadra/update-squadra-ui/' + ${squadraDTO.id}}" method="post" th:object="${squadraDTO}">
+                <div class="col">
+                    <input type="text" class="form-control" th:field="*{nome}"
+                           aria-label="Nome">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" th:field="*{dataFondazione}"
+                           placeholder="Data fondazione" aria-label="Data formazione">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" th:field="*{indirizzo}"
+                           placeholder="Indirizzo" aria-label="Data formazione">
+                </div>
+                <div class="col">
+                    <button class="btn btn-primary" type="submit">Aggiorna Squadra</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
