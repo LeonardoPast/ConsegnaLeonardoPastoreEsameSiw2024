@@ -5,6 +5,8 @@ import com.uniroma3.esamesiw2024.entity.Credentials;
 import com.uniroma3.esamesiw2024.entity.User;
 import com.uniroma3.esamesiw2024.repository.UserRepository;
 import com.uniroma3.esamesiw2024.service.CredentialsService;
+import com.uniroma3.esamesiw2024.service.PresidenteService;
+import com.uniroma3.esamesiw2024.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -15,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.io.IOException;
@@ -27,7 +30,13 @@ public class AuthenticationController {
     private UserRepository userRepository;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private CredentialsService credentialsService;
+
+    @Autowired
+    private PresidenteService presidenteService;
 
     @GetMapping(value = "/login")
     public String showLogin (Model model) {
@@ -63,6 +72,12 @@ public class AuthenticationController {
         return "index.html";
     }
 
+    @GetMapping(value = "/users")
+    public String gestisciUser (Model model) {
+        model.addAttribute("users", userService.getAllUsers());
+        return "users.html";
+    }
+
     @GetMapping(value = "/register")
     public String showRegister(Model model){
         model.addAttribute("user", new User());
@@ -86,5 +101,15 @@ public class AuthenticationController {
             return "index.html";
         }
         return "formRegisterUser.html";
+    }
+
+    @PostMapping(value = "/update-role/{id}")
+    public String updateRole(@PathVariable("id")Long id, Model model){
+        User user = userService.getUser(id);
+        credentialsService.UpdateRole(user.getName());
+        presidenteService.savePresidente(user);
+
+        model.addAttribute("users", userService.getAllUsers());
+        return "users.html";
     }
 }

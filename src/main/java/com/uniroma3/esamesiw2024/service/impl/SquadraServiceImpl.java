@@ -1,12 +1,15 @@
 package com.uniroma3.esamesiw2024.service.impl;
 
 import com.uniroma3.esamesiw2024.entity.Giocatore;
+import com.uniroma3.esamesiw2024.entity.Presidente;
 import com.uniroma3.esamesiw2024.entity.Squadra;
 import com.uniroma3.esamesiw2024.mapper.EntityUtil;
 import com.uniroma3.esamesiw2024.model.GiocatoreDTO;
+import com.uniroma3.esamesiw2024.model.PresidenteDTO;
 import com.uniroma3.esamesiw2024.model.SquadraDTO;
 import com.uniroma3.esamesiw2024.repository.SquadraRepository;
 import com.uniroma3.esamesiw2024.service.GiocatoreService;
+import com.uniroma3.esamesiw2024.service.PresidenteService;
 import com.uniroma3.esamesiw2024.service.SquadraService;
 import jakarta.transaction.Transactional;
 import org.apache.commons.logging.Log;
@@ -27,6 +30,10 @@ public class SquadraServiceImpl implements SquadraService {
 
     @Autowired
     private GiocatoreService giocatoreService;
+
+    @Autowired
+    private PresidenteService presidenteService;
+
 
     @Autowired
     private ModelMapper mapper;
@@ -70,6 +77,16 @@ public class SquadraServiceImpl implements SquadraService {
         giocatoreDTO.setSquadra(current);
         giocatoreList.add(giocatoreDTO);
         current.setGiocatori(giocatoreList);
+        this.repo.save(this.mapper.map(current, Squadra.class));
+        return current;
+    }
+
+    @Override
+    public SquadraDTO addPresidenteToSquadra(Long id, Long presidenteId) {
+        SquadraDTO current = this.mapper.map(this.repo.findById(id).get(), SquadraDTO.class);
+        PresidenteDTO presidenteDTO = this.presidenteService.getPresidenteById(presidenteId);
+        current.setPresidente(presidenteDTO);
+        presidenteDTO.setSquadra(current);
         this.repo.save(this.mapper.map(current, Squadra.class));
         return current;
     }

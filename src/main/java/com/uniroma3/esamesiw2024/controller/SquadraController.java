@@ -3,6 +3,7 @@ package com.uniroma3.esamesiw2024.controller;
 
 import com.uniroma3.esamesiw2024.entity.Squadra;
 import com.uniroma3.esamesiw2024.model.GiocatoreDTO;
+import org.springframework.boot.Banner;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -42,5 +43,17 @@ public interface SquadraController {
 
     @GetMapping("/get-squadra/{id}")
     public String getSquadraById(@PathVariable Long id, Model model);
+
+    @GetMapping("/form-squadra-add")
+    public String addSquadraForm(Model model);
+
+    @PostMapping("/add-squadra")
+    public String addSquadra(Model model, @ModelAttribute(value = "squadraDTO") SquadraDTO squadraDTO);
+
+    @GetMapping("/get-presidente/{id}")
+    public String findPresidenteForSquadra(@PathVariable Long id, Model model);
+
+    @GetMapping("/add-presidente/{id}/{presidenteId}")
+    public String addPresidenteToSquadra(@PathVariable Long id, @PathVariable Long presidenteId);
 
 }

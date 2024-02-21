@@ -37,5 +37,11 @@ public class CredentialsService {
         return this.credentialsRepository.save(credentials);
     }
 
+    public Credentials UpdateRole(String username) {
+        Credentials result = this.credentialsRepository.findByUsername(username).get();
+        result.setRole("PRESIDENTE");
+        return this.credentialsRepository.save(result);
+    }
+
 
 }

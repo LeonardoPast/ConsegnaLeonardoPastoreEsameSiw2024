@@ -38,7 +38,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
 		http.authorizeHttpRequests((authz) -> authz
-				.requestMatchers(HttpMethod.GET,"/","/index", "/static/**", "/css/**", "/js/**", "/images/**", "/squadra/get-all-squadra-ui/**", "/squadra/get-squadra/**", "/register").permitAll()
+				.requestMatchers(HttpMethod.GET,"/","/index", "/static/**", "/css/**", "/js/**", "/images/**", "/squadra/get-all-squadra-ui/**", "/squadra/get-squadra/**", "/register", "/giocatore/get-all-giocatore-ui/**").permitAll()
 				.requestMatchers(HttpMethod.POST, "/login", "/register").permitAll()
 				.requestMatchers(HttpMethod.GET, "/squadra/form-squadra-update-admin/{id}/").hasRole(Credentials.ADMIN_ROLE)
 				.requestMatchers(HttpMethod.POST, "/squadra/update-squadra-ui/{id}/").hasRole(Credentials.ADMIN_ROLE)

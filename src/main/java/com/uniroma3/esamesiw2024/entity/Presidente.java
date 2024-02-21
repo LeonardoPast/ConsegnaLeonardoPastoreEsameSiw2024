@@ -1,13 +1,13 @@
 package com.uniroma3.esamesiw2024.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class Presidente {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "presidenteid")
+    @SequenceGenerator(name="presidenteid", sequenceName = "presidenteid", allocationSize = 1)
     private Long id;
     private String nome;
     private String cognome;

@@ -19,6 +19,12 @@
         <div class="row d-flex justify-content-center">
             <div class="col-md-6 text-center p-3">
                 <a class="btn btn-dark" href="/squadra/get-all-squadra-ui">Vedi le squadre</a>
+                <br>
+                <br>
+                <br>
+                <div sec:authorize="hasAuthority('ADMIN')">
+                    <a  class="btn btn-dark" href="/users">Gestisci users</a>
+                </div>
             </div>
         </div>
     </div>

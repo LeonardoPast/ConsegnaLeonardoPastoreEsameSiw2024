@@ -2,15 +2,19 @@ package com.uniroma3.esamesiw2024.controller.impl;
 
 import com.uniroma3.esamesiw2024.controller.SquadraController;
 import com.uniroma3.esamesiw2024.model.GiocatoreDTO;
+import com.uniroma3.esamesiw2024.model.PresidenteDTO;
 import com.uniroma3.esamesiw2024.model.SquadraDTO;
 import com.uniroma3.esamesiw2024.service.GiocatoreService;
+import com.uniroma3.esamesiw2024.service.PresidenteService;
 import com.uniroma3.esamesiw2024.service.SquadraService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -18,6 +22,9 @@ public class SquadraControllerImpl implements SquadraController {
 
     @Autowired
     private SquadraService service;
+
+    @Autowired
+    private PresidenteService presidenteService;
 
     @Autowired
     private GiocatoreService giocatoreService;
@@ -90,26 +97,62 @@ public class SquadraControllerImpl implements SquadraController {
     @Override
     public String addPlayerUi(Long idSquadra, GiocatoreDTO giocatoreDTO) {
         SquadraDTO response = this.service.addPlayerToSquadra(idSquadra, giocatoreDTO);
-
         return "index";
     }
 
     @Override
     public String formSquadraUpdate(Long id, Model model) {
-        SquadraDTO squadraDTO = this.service.getSquadraById(id);
-        if(squadraDTO != null){
-            model.addAttribute("squadraDTO", squadraDTO);
-        }
+        SquadraDTO squadraDTO = new SquadraDTO();
+        squadraDTO = this.service.getSquadraById(id);
+        model.addAttribute("squadraDTO", squadraDTO);
         return "formSquadra";
     }
 
     @Override
     public String getSquadraById(Long id, Model model) {
-        SquadraDTO squadraDTO = this.service.getSquadraById(id);
+        SquadraDTO squadraDTO = new SquadraDTO();
+        squadraDTO = this.service.getSquadraById(id);
         //GiocatoreDTO giocatoreDTO = this.giocatoreService.ge
-        if(squadraDTO != null){
-            model.addAttribute("squadraDTO", squadraDTO);
+        model.addAttribute("squadraDTO", squadraDTO);
+        if(squadraDTO.getPresidente() == null){
+            model.addAttribute("presidente", "Presidente non assegnato");
+            model.addAttribute("presidenti", this.presidenteService.getAllPresidente());
+        }
+        else{
+            model.addAttribute("presidente", squadraDTO.getPresidente().getNome());
         }
         return "squadra";
+    }
+
+    @Override
+    public String addSquadraForm(Model model) {
+        model.addAttribute("squadraDTO", new SquadraDTO());
+        return "aggiungiSquadra";
+    }
+
+    @Override
+    public String addSquadra(Model model, SquadraDTO squadraDTO) {
+        SquadraDTO response = this.service.insertSquadra(squadraDTO);
+        model.addAttribute("squadra", response);
+        return "squadra";
+    }
+
+
+    @Override
+    public String findPresidenteForSquadra(Long id, Model model) {
+        SquadraDTO squadraDTO = new SquadraDTO();
+        squadraDTO = this.service.getSquadraById(id);
+        model.addAttribute("squadraDTO", squadraDTO);
+        List<PresidenteDTO> presidenteDTOList = new ArrayList<>();
+        presidenteDTOList = this.presidenteService.getAllPresidente();
+        model.addAttribute("presidenti", presidenteDTOList);
+        return "presidenti";
+    }
+
+    @Override
+    public String addPresidenteToSquadra(Long id, Long presidenteId) {
+        SquadraDTO squadraDTO = new SquadraDTO();
+        squadraDTO = this.service.addPresidenteToSquadra(id ,presidenteId);
+        return "index";
     }
 }
