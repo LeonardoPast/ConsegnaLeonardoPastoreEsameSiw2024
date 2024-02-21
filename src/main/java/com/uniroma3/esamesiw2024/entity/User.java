@@ -17,6 +17,10 @@ public class User {
 
     private String surname;
 
+    private String codicePostale;
+    private String dataNascita;
+    private String luogoNascita;
+
     @OneToOne(mappedBy = "user")
     private Credentials credentials;
 
@@ -59,5 +63,29 @@ public class User {
 
     public void setCredentials(Credentials credentials) {
         this.credentials = credentials;
+    }
+
+    public String getCodicePostale() {
+        return codicePostale;
+    }
+
+    public void setCodicePostale(String codicePostale) {
+        this.codicePostale = codicePostale;
+    }
+
+    public String getDataNascita() {
+        return dataNascita;
+    }
+
+    public void setDataNascita(String dataNascita) {
+        this.dataNascita = dataNascita;
+    }
+
+    public String getLuogoNascita() {
+        return luogoNascita;
+    }
+
+    public void setLuogoNascita(String luogoNascita) {
+        this.luogoNascita = luogoNascita;
     }
 }

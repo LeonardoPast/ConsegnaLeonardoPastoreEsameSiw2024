@@ -21,7 +21,7 @@
         </div>
     </div>
     <div class="row">
-        <div th:if="${squadre.isEmpty()}">Non ci sono squadre nel sistema</div>
+        <div th:if="${squadre == null}">Non ci sono squadre nel sistema</div>
         <div class="container text-center">
             <!--<div class="row row-cols-1 row-cols-md-3 g-4">-->
             <div class="row row-cols-4">

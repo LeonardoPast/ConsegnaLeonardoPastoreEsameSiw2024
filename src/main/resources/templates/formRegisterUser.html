@@ -63,6 +63,24 @@
 						<span th:if="${#fields.hasErrors('user.email')}" th:errors="${user.email}" th:style="'color:red'">
 						</span>
 					</div>
+					<div class="form-floating mb-3">
+						<input type="text" class="form-control" id="floatingDataInput" placeholder="Data" required th:field="${user.dataNascita}"/>
+						<label for="floatingDataInput">DataNascita</label>
+						<span th:if="${#fields.hasErrors('user.dataNascita')}" th:errors="${user.dataNascita}" th:style="'color:red'">
+						</span>
+					</div>
+					<div class="form-floating mb-3">
+						<input type="text" class="form-control" id="floatingEmailluogo" placeholder="Email" required th:field="${user.luogoNascita}"/>
+						<label for="floatingEmailluogo">LuogoNascita</label>
+						<span th:if="${#fields.hasErrors('user.luogoNascita')}" th:errors="${user.luogoNascita}" th:style="'color:red'">
+						</span>
+					</div>
+					<div class="form-floating mb-3">
+						<input type="text" class="form-control" id="floatingEmailpostale" placeholder="Email" required th:field="${user.codicePostale}"/>
+						<label for="floatingEmailpostale">Codice Fiscale</label>
+						<span th:if="${#fields.hasErrors('user.codicePostale')}" th:errors="${user.codicePostale}" th:style="'color:red'">
+						</span>
+					</div>
 					<div>
 						<label>Foto: </label>
 						<input type="file" name="image" accept="image/png, image/jpeg" />
@@ -78,22 +96,6 @@
 		</div>
 	</div>
 
-
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<!-- FOOTER LIBRI -->
-	<footer class="footer bg-dark py-5 mt-5">
-		<div class="container text-light text-center">
-			<a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer"><img src="/images/facebook.png"/></a>
-			<a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer"><img src="/images/instagram.png"/></a>
-			<a href="https://www.google.it" target="_blank" rel="noopener noreferrer"><img src="/images/google.png"/></a>
-			<a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer"><img src="/images/twitter.png"/></a>
-		</div>
-	</footer>
 </body>
 
 </html>

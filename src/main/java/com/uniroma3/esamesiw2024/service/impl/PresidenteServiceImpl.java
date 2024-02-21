@@ -39,6 +39,9 @@ public class PresidenteServiceImpl implements PresidenteService {
         PresidenteDTO presidenteDTO = new PresidenteDTO();
         presidenteDTO.setNome(user.getName());
         presidenteDTO.setCognome(user.getSurname());
+        presidenteDTO.setDataNascita(user.getDataNascita());
+        presidenteDTO.setLuogoNascita(user.getLuogoNascita());
+        presidenteDTO.setCodicePostale(user.getCodicePostale());
         Presidente presidente = this.presidenteRepository.save(mapper.map(presidenteDTO, Presidente.class));
 
         return this.mapper.map(presidente, PresidenteDTO.class);

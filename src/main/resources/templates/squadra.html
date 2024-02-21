@@ -22,7 +22,7 @@
                 <div class="col">
                     <h1 th:text="'Presidente:' + ${presidente}"></h1>
                     <div th:if="${presidente.equals('Presidente non assegnato')}">
-                        <a class="card-text" th:href="'/squadra/get-presidente/' + ${squadraDTO.id}">Aggiungi giocatore</a>
+                        <a class="btn btn-dark" th:href="'/squadra/get-presidente/' + ${squadraDTO.id}">Aggiungi Presidente</a>
                     </div>
                 </div>
             </div>

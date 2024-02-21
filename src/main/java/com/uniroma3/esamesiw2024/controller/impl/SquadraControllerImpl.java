@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Controller
@@ -40,8 +41,9 @@ public class SquadraControllerImpl implements SquadraController {
 
     @Override
     public String getAllSquadraUi(Model model) {
-        List<SquadraDTO> listaDTO = this.service.getAllSquadre();
 
+        List<SquadraDTO> listaDTO = new ArrayList<>();
+        listaDTO = this.service.getAllSquadre();
         model.addAttribute("squadre", listaDTO);
         return "squadre";
     }
