@@ -15,9 +15,9 @@ public class Squadra {
     private String Nome;
     private String dataFondazione;
     private String indirizzo;
-    @OneToMany(cascade=CascadeType.ALL)
+    @OneToMany(mappedBy="squadra" ,cascade=CascadeType.ALL, orphanRemoval = true)
     private List<Giocatore> giocatori;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Presidente presidente;
 
     public Long getId() {

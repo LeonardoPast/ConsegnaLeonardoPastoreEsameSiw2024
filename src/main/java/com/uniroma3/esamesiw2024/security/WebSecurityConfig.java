@@ -1,5 +1,6 @@
 package com.uniroma3.esamesiw2024.security;
 
+import com.uniroma3.esamesiw2024.entity.Credentials;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -37,16 +38,20 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
 		http.authorizeHttpRequests((authz) -> authz
-				.requestMatchers(HttpMethod.GET,"/","/index", "/css/**", "/js/**", "/images/**", "/squadra/**").permitAll()
-				.requestMatchers((HttpMethod.POST)).permitAll()
-						.anyRequest().permitAll());
+				.requestMatchers(HttpMethod.GET,"/","/index", "/static/**", "/css/**", "/js/**", "/images/**", "/squadra/get-all-squadra-ui/**", "/squadra/get-squadra/**", "/register").permitAll()
+				.requestMatchers(HttpMethod.POST, "/login", "/register").permitAll()
+				.requestMatchers(HttpMethod.GET, "/squadra/form-squadra-update-admin/{id}/").hasRole(Credentials.ADMIN_ROLE)
+				.requestMatchers(HttpMethod.POST, "/squadra/update-squadra-ui/{id}/").hasRole(Credentials.ADMIN_ROLE)
+				.requestMatchers(HttpMethod.GET, "/squadra/formPlayer/{idSquadra}/").hasRole(Credentials.PRESIDENTE_ROLE)
+				.requestMatchers(HttpMethod.POST, "/squadra/add-player-ui/{idSquadra}/").hasRole(Credentials.PRESIDENTE_ROLE)
+						.anyRequest().authenticated());
 				/*.requestMatchers(HttpMethod.POST,"/basic/**", "/basic/login", "/basic/register").permitAll()
 				//.requestMatchers(HttpMethod.GET, "/user/**", "/**").hasAnyAuthority(DEFAULT_ROLE)
 				//.requestMatchers(HttpMethod.POST, "/user/**", "/user/formNewPersonaggio").hasAnyAuthority(DEFAULT_ROLE)
 				.anyRequest().authenticated());*/
 		http.formLogin((form) ->form
 				.loginPage("/login")
-				.defaultSuccessUrl("/index")
+				.defaultSuccessUrl("/success")
 				.permitAll());
 		http.logout((logout) -> logout
 				.logoutSuccessUrl("/")
@@ -61,8 +66,10 @@ public class WebSecurityConfig {
 		http.requestCache((cache) -> cache
 				.requestCache(req));
 		http.exceptionHandling((exceptionHandling) -> exceptionHandling
-				.accessDeniedPage("/"));
+				.accessDeniedPage("/login"));
 		http.csrf(AbstractHttpConfigurer::disable);
+
+
 		return http.build();
 
 

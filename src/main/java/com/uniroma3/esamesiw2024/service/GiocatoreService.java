@@ -11,4 +11,5 @@ public interface GiocatoreService {
 
     public List<GiocatoreDTO> getAllGiocatore();
 
+    public GiocatoreDTO getGiocatore(Long id);
 }

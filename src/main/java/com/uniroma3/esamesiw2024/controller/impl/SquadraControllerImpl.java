@@ -3,16 +3,13 @@ package com.uniroma3.esamesiw2024.controller.impl;
 import com.uniroma3.esamesiw2024.controller.SquadraController;
 import com.uniroma3.esamesiw2024.model.GiocatoreDTO;
 import com.uniroma3.esamesiw2024.model.SquadraDTO;
+import com.uniroma3.esamesiw2024.service.GiocatoreService;
 import com.uniroma3.esamesiw2024.service.SquadraService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -21,6 +18,9 @@ public class SquadraControllerImpl implements SquadraController {
 
     @Autowired
     private SquadraService service;
+
+    @Autowired
+    private GiocatoreService giocatoreService;
 
     @Override
     public ResponseEntity<List<SquadraDTO>> getAllSquadra() {
@@ -34,9 +34,8 @@ public class SquadraControllerImpl implements SquadraController {
     @Override
     public String getAllSquadraUi(Model model) {
         List<SquadraDTO> listaDTO = this.service.getAllSquadre();
-        if(listaDTO != null && !listaDTO.isEmpty()){
-            model.addAttribute("squadre", listaDTO);
-        }
+
+        model.addAttribute("squadre", listaDTO);
         return "squadre";
     }
 
@@ -79,11 +78,38 @@ public class SquadraControllerImpl implements SquadraController {
     }
 
     @Override
+    public String formPlayer(Long idSquadra, Model model) {
+        SquadraDTO squadraDTO = this.service.getSquadraById(idSquadra);
+        if(squadraDTO != null){
+            model.addAttribute("squadraDTO", squadraDTO);
+            model.addAttribute("giocatoreDTO", new GiocatoreDTO());
+        }
+        return "formPlayer";
+    }
+
+    @Override
+    public String addPlayerUi(Long idSquadra, GiocatoreDTO giocatoreDTO) {
+        SquadraDTO response = this.service.addPlayerToSquadra(idSquadra, giocatoreDTO);
+
+        return "index";
+    }
+
+    @Override
     public String formSquadraUpdate(Long id, Model model) {
         SquadraDTO squadraDTO = this.service.getSquadraById(id);
         if(squadraDTO != null){
             model.addAttribute("squadraDTO", squadraDTO);
         }
         return "formSquadra";
+    }
+
+    @Override
+    public String getSquadraById(Long id, Model model) {
+        SquadraDTO squadraDTO = this.service.getSquadraById(id);
+        //GiocatoreDTO giocatoreDTO = this.giocatoreService.ge
+        if(squadraDTO != null){
+            model.addAttribute("squadraDTO", squadraDTO);
+        }
+        return "squadra";
     }
 }

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Aggiorna squadra</title>
+    <link rel="stylesheet" href="/css/stile.css?version=2" />
+    <link rel="stylesheet" href="/css/bootstrap.css" />
+    <script defer th:src="@{/js/bootstrap.bundle.min.js}" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <header>
+        <div th:replace="fragments/navbar :: navbar"></div>
+    </header>
+
+    <div class="container-fluid">
+        <form th:action="@{'/squadra/add-player-ui/' + ${squadraDTO.id}}" method="post" th:object="${giocatoreDTO}">
+            <div class="row">
+                <div class="col">
+                    <input type="text" class="form-control" th:field="*{nome}"
+                           placeholder="Nome" aria-label="Nome">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" th:field="*{cognome}"
+                           placeholder="cognome" aria-label="cognome">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" th:field="*{data}"
+                           placeholder="data" aria-label="data">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <input type="text" class="form-control" th:field="*{luogoNascita}"
+                           placeholder="luogoNascita" aria-label="luogoNascita">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" th:field="*{ruolo}"
+                           placeholder="ruolo" aria-label="Nome">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" th:field="*{dataInizioTess}"
+                           placeholder="dataInizio" aria-label="Nome">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" th:field="*{dataFineTess}"
+                           placeholder="dataFine" aria-label="Nome">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-primary" type="submit">Aggiungi giocatore</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

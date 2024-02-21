@@ -28,10 +28,19 @@ public interface SquadraController {
     @PostMapping("/update-squadra-ui/{id}")
     public String updateSquadraUi(@ModelAttribute(value = "squadraDTO") SquadraDTO squadraDTO, @PathVariable Long id);
 
-    @PutMapping("/add-player/{id}")
+    @PostMapping("/add-player/{id}")
     ResponseEntity<SquadraDTO> addPlayerToSquadra(@PathVariable Long id, @RequestBody GiocatoreDTO giocatoreDTO);
+
+    @GetMapping("/formPlayer/{idSquadra}")
+    public String formPlayer(@PathVariable Long idSquadra, Model model);
+
+    @PostMapping("/add-player-ui/{idSquadra}")
+    public String addPlayerUi(@PathVariable Long idSquadra,@ModelAttribute(value = "giocatoreDTO") GiocatoreDTO giocatoreDTO);
 
     @GetMapping("/form-squadra-update-admin/{id}")
     public String formSquadraUpdate(@PathVariable Long id, Model model);
+
+    @GetMapping("/get-squadra/{id}")
+    public String getSquadraById(@PathVariable Long id, Model model);
 
 }

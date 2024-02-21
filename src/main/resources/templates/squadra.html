@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Squadra</title>
+    <link rel="stylesheet" href="/css/stile.css?version=2" />
+    <link rel="stylesheet" href="/css/bootstrap.css" />
+    <script defer th:src="@{/js/bootstrap.bundle.min.js}" crossorigin="anonymous"></script>
+</head>
+<body xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity">
+<!-- NAVBAR SQUADRA -->
+<header>
+    <div th:replace="fragments/navbar :: navbar"></div>
+</header>
+
+    <div>
+        <div class="container text-center">
+            <div class="row">
+                <div class="col">
+                    <h1 th:text="'Nome: ' + ${squadraDTO.nome}"></h1>
+                </div>
+                <div class="col">
+                    <h1 th:text="'Presidente' + ${squadraDTO.presidente.nome}"></h1>
+                </div>
+            </div>
+            <<div class="row">
+                <div th:if="${squadraDTO.giocatori.isEmpty()}">Non ci sono giocatori nella squadra</div>
+                <div class="container text-center">
+                    <div class="row row-cols-4">
+                        <div class="col" th:each="giocatore : ${squadraDTO.giocatori}">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title" th:text="${giocatore.nome}"></h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div sec:authorize="hasAuthority('PRESIDENTE')" class="card-footer">
+                <a class="card-text" th:href="'/squadra/formPlayer/' + ${squadraDTO.id}">Aggiungi giocatore</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

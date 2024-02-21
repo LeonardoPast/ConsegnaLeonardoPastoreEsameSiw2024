@@ -67,6 +67,7 @@ public class SquadraServiceImpl implements SquadraService {
     public SquadraDTO addPlayerToSquadra(Long id, GiocatoreDTO giocatoreDTO) {
         SquadraDTO current = this.mapper.map(this.repo.findById(id).get(), SquadraDTO.class);
         List<GiocatoreDTO> giocatoreList = current.getGiocatori();
+        giocatoreDTO.setSquadra(current);
         giocatoreList.add(giocatoreDTO);
         current.setGiocatori(giocatoreList);
         this.repo.save(this.mapper.map(current, Squadra.class));

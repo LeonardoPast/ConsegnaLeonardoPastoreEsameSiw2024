@@ -33,4 +33,11 @@ public class GiocatoreServiceImpl implements GiocatoreService {
         List<Giocatore> listaEntity = this.repo.findAll();
         return EntityUtil.mapList(this.mapper, GiocatoreDTO.class, listaEntity.toArray());
     }
+
+    @Override
+    public GiocatoreDTO getGiocatore(Long id) {
+        return null;
+    }
+
+
 }
